@@ -1,0 +1,104 @@
+'
+'Example for ProxFusion_2 Click
+'
+'    Date          : avg 2018.
+'    Author        : Katarina Perendic
+'
+'Test configuration MSP :
+'    
+'    MCU              : MSP432
+'    Dev. Board       : Clicker 2 for MSP432
+'    ARM Compiler ver : v6.0.0.0
+'
+'---
+'
+'Description :
+'
+'The application is composed of three sections :
+'
+'- System Initialization - Initializes I2C module and sets INT pin as INPUT
+'- Application Initialization - Initializes Driver init and configuraton and init chip
+'- Application Task - (code snippet):
+'     1) Checks whether Touch is detected and measures the output detection.
+'     2) Measures Ambient lighting - whether it's Light or Dark, ALS range and ALS output.
+'     3) Checks the orientation of the magnet and measures the HALL output.
+'
+'
+program Click_ProxFusion_2_MSP
+
+include Click_ProxFusion_2_types
+include Click_ProxFusion_2_config
+dim
+    Touch as uint8_t 
+    ALS_range as uint8_t 
+    darkLight_ambient as uint8_t 
+    hall_detect as uint8_t 
+    dataRead as uint16_t 
+    demoText as char[50] 
+    
+sub procedure systemInit() 
+    mikrobus_gpioInit(_MIKROBUS1, _MIKROBUS_INT_PIN, _GPIO_INPUT) 
+    mikrobus_i2cInit(_MIKROBUS1, @_PROXFUSION2_I2C_CFG[0]) 
+    mikrobus_logInit(_MIKROBUS2, 9600) 
+    mikrobus_logWrite(" --- System Init ---", _LOG_LINE) 
+    Delay_ms(100) 
+end sub
+
+sub procedure applicationInit() 
+    proxfusion2_i2cDriverInit(T_PROXFUSION2_P(@_MIKROBUS1_GPIO), T_PROXFUSION2_P(@_MIKROBUS1_I2C), 0x44) 
+    mikrobus_logWrite("---- Initalizaion and configuration --- ", _LOG_LINE) 
+    proxfusion2_init() 
+    proxfusion2_defaultConfig() 
+    Delay_100ms() 
+    mikrobus_logWrite("--- Start measurement ---", _LOG_LINE) 
+end sub
+
+sub procedure applicationTask() 
+    mikrobus_logWrite("_________________________________________________________________________", _LOG_LINE) 
+    mikrobus_logWrite("| TOUCH  |  T - UI  | AMBIENT | ALS RANGE |  ALS UI  |  HALL  | HALL UI |", _LOG_LINE) 
+    Touch = proxfusion2_readByte(0x13) 
+    if ((Touch and 0x02) <> 0) then 
+        mikrobus_logWrite("|  YES   |", _LOG_TEXT) 
+    else 
+        mikrobus_logWrite("|   NO   |", _LOG_TEXT) 
+    end if
+    dataRead = proxfusion2_readData(_PROXFUSION2_HYSTERESIS_UI_OUTPUT) 
+    IntToStr(dataRead, demoText) 
+    mikrobus_logWrite(demoText, _LOG_TEXT) 
+    mikrobus_logWrite("    |", _LOG_TEXT) 
+    darkLight_ambient = proxfusion2_detectDark_Light(@ALS_range) 
+    if (darkLight_ambient = _PROXFUSION2_DARK_AMBIENT) then 
+        mikrobus_logWrite("  DARK   |", _LOG_TEXT) 
+    else 
+        mikrobus_logWrite(" LIGHT   |", _LOG_TEXT) 
+    end if
+    IntToStr(ALS_range, demoText) 
+    mikrobus_logWrite(demoText, _LOG_TEXT) 
+    mikrobus_logWrite("     |", _LOG_TEXT) 
+    dataRead = proxfusion2_readData(_PROXFUSION2_ALS_UI_OUTPUT) 
+    IntToStr(dataRead, demoText) 
+    mikrobus_logWrite(demoText, _LOG_TEXT) 
+    mikrobus_logWrite("    |", _LOG_TEXT) 
+    hall_detect = proxfusion2_detectHall() 
+    if (hall_detect <> 0) then 
+        if (hall_detect = 1) then 
+            mikrobus_logWrite(" NORTH  |", _LOG_TEXT) 
+        else 
+            mikrobus_logWrite(" SOUTH  |", _LOG_TEXT) 
+        end if
+    end if
+    dataRead = proxfusion2_readData(_PROXFUSION2_HALL_EFFECT_UI_OUTPUT) 
+    IntToStr(dataRead, demoText) 
+    mikrobus_logWrite(demoText, _LOG_TEXT) 
+    mikrobus_logWrite("   |", _LOG_LINE) 
+    Delay_ms(3000) 
+end sub
+
+main :
+
+    systemInit() 
+    applicationInit() 
+    while (1) 
+        applicationTask() 
+    wend
+end.

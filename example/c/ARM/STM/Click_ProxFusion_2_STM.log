@@ -1,0 +1,31 @@
+0	1	mikroCARM.exe -MSF -DBG -pSTM32F107VC -BIN -LHF -DL -SSA -O11111114 -fo72 -N"D:\Clicks_git\P\ProxFusion_2_Click\SW\example\c\ARM\STM\Click_ProxFusion_2_STM.mcpar" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M3\" -SP"D:\Clicks_git\P\ProxFusion_2_Click\SW\example\c\ARM\STM\" -SP"D:\Clicks_git\P\ProxFusion_2_Click\SW\library\HAL\" -SP"D:\Clicks_git\P\ProxFusion_2_Click\SW\library\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\mikroBUS Board Definition API\Uses\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\TI M3\" -IP"D:\Clicks_git\P\ProxFusion_2_Click\SW\example\c\ARM\STM\" -IP"D:\Clicks_git\P\ProxFusion_2_Click\SW\library\" -IP"D:\Clicks_git\P\ProxFusion_2_Click\SW\library\HAL\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\mikroBUS Board Definition API\Uses\" "Click_ProxFusion_2_STM.c" "__proxfusion2_driver.c" "__Lib_Math.emcl" "__Lib_MathDouble.emcl" "__Lib_Delays.emcl" "__Lib_System_105_107.emcl" "__Lib_GPIO_32F10x_Defs.emcl" "__Lib_GPIO_32F10x.emcl" "__Lib_CString.emcl" "__Lib_Conversions.emcl" "__Lib_I2C_12.emcl" "__Lib_UART_123_45.emcl" "easymx_v7_STM32F107VC.emcl" "Click_ProxFusion_2.pld"	 
+diagnostics: 0	122	Compilation Started	STM32F107VC.c
+diagnostics: 38838	123	Compiled Successfully	STM32F107VC.c
+diagnostics: 0	122	Compilation Started	__Lib_Delays.c
+diagnostics: 118	123	Compiled Successfully	__Lib_Delays.c
+hint: 66	1164	Variable 'cycles_div_by_10' has been eliminated by optimizer	__Lib_Delays.c
+hint: 87	1164	Variable 'NumberOfCyc' has been eliminated by optimizer	__Lib_Delays.c
+hint: 104	1164	Variable 'NumberOfCyc' has been eliminated by optimizer	__Lib_Delays.c
+diagnostics: 0	122	Compilation Started	__lib_gpio.h
+diagnostics: 814	123	Compiled Successfully	__Lib_GPIO_32F10x_Defs.c
+diagnostics: 0	122	Compilation Started	stdint.h
+error: 50	324	Undeclared identifier 'proxfusion2_i2cDriverInit' in expression	Click_ProxFusion_2_STM.c
+error: 50	317	Operator '' is not applicable to these operands ''	Click_ProxFusion_2_STM.c
+error: 50	402	; expected, but ')' found	Click_ProxFusion_2_STM.c
+error: 50	424	'}' expected ';' found	Click_ProxFusion_2_STM.c
+error: 64	324	Undeclared identifier 'proxfusion2_readByte' in expression	Click_ProxFusion_2_STM.c
+error: 73	324	Undeclared identifier 'proxfusion2_readData' in expression	Click_ProxFusion_2_STM.c
+error: 79	324	Undeclared identifier 'proxfusion2_detectDark_Light' in expression	Click_ProxFusion_2_STM.c
+error: 80	324	Undeclared identifier '_PROXFUSION2_DARK_AMBIENT' in expression	Click_ProxFusion_2_STM.c
+error: 92	324	Undeclared identifier 'proxfusion2_readData' in expression	Click_ProxFusion_2_STM.c
+error: 98	324	Undeclared identifier 'proxfusion2_detectHall' in expression	Click_ProxFusion_2_STM.c
+error: 110	324	Undeclared identifier 'proxfusion2_readData' in expression	Click_ProxFusion_2_STM.c
+error: 115	312	Internal error ''	Click_ProxFusion_2_STM.c
+diagnostics: 0	122	Compilation Started	stdint.h
+diagnostics: 504	123	Compiled Successfully	__proxfusion2_driver.c
+hint: 323	1164	Variable 'tmp' has been eliminated by optimizer	__proxfusion2_driver.c
+hint: 84	1164	Variable 'tmp' has been eliminated by optimizer	__proxfusion2_driver.c
+hint: 101	1164	Variable 'ptr' has been eliminated by optimizer	__proxfusion2_driver.c
+hint: 109	1164	Variable 'ptr' has been eliminated by optimizer	__proxfusion2_driver.c
+hint: 464	1164	Variable 'touch' has been eliminated by optimizer	__proxfusion2_driver.c
+error: 0	102	Finished (with errors): 19 dec 2018, 14:29:02	Click_ProxFusion_2_STM.mcpar
